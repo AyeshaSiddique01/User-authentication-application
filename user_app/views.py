@@ -4,19 +4,24 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.views.generic import View
-
+import os
+from pathlib import Path
 from .models import Profile
+
 
 class LoginView(View):
     """
     View for handling user login.
     """
+
     def post(self, request):
         """
         Handles POST requests for user login.
         """
         user = authenticate(
-            request, username=request.POST["username"], password=request.POST["password"]
+            request,
+            username=request.POST["username"],
+            password=request.POST["password"],
         )
         if user is not None:
             login(request, user)
@@ -31,14 +36,17 @@ class LoginView(View):
         """
         return render(request, "login.html")
 
+
 class SignupView(View):
     """
     View for handling user registration (signup).
     """
+
     def post(self, request):
         """
         Handles POST requests for user registration.
         """
+        username=request.POST.get("name")
         user_password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
@@ -46,11 +54,19 @@ class SignupView(View):
             messages.error(request, "Password doesn't match")
             return render(request, "signup.html")
 
-        hashed_password = make_password(user_password)
+        # file = request.POST.get("user_image")
+        # if user_image:
+        #     user_image = f"../media/uploads/{username}.png"
+        #     if Path(user_image).is_file():
+        #         os.remove(user_image)
+        # else:
+        #     user_image = "../media/uploads/empty.png"
+        # file.save(user_image)
 
+        hashed_password = make_password(user_password)
         user = Profile(
             full_name=request.POST.get("full_name"),
-            username=request.POST.get("name"),
+            username=username,
             email=request.POST.get("email"),
             password=hashed_password,
             user_gender=request.POST.get("gender"),
@@ -58,7 +74,8 @@ class SignupView(View):
             user_phone_no=request.POST.get("phone_no"),
             user_cnic=request.POST.get("CNIC"),
             user_designation=request.POST.get("designation"),
-            user_address=request.POST.get("user_address")
+            user_address=request.POST.get("user_address"),
+            user_image="/Users/ayshasiddique/Documents/User_authentication_app/user_authentication_app/user_app/media/uploads/empty.png",
         )
         user.save()
 
@@ -72,10 +89,12 @@ class SignupView(View):
         """
         return render(request, "signup.html")
 
+
 class ResetPasswordView(View):
     """
     View for handling user password reset.
     """
+
     def post(self, request):
         """
         Handles POST requests for resetting user password.
@@ -87,7 +106,7 @@ class ResetPasswordView(View):
         if not Profile.objects.filter(username=username).exists():
             messages.error(request, "User does not exist")
             return render(request, "reset_password.html")
-        
+
         if user_password != confirm_password:
             messages.error(request, "Password doesn't match")
             return render(request, "reset_password.html")
@@ -104,27 +123,30 @@ class ResetPasswordView(View):
         """
         return render(request, "reset_password.html")
 
+
 class ProfileView(View):
     """
     View for displaying user profile.
     """
+
     def get(self, request):
         """
         Handles GET requests for displaying the user profile page.
         """
         if request.user.is_authenticated:
             user = request.user
-            context = {
-                'profile': user.profile
-            }
+            context = {"profile": user.profile}
+            print(context.get("user_image"))
             return render(request, "profile.html", context=context)
 
         return render(request, "login.html")
+
 
 class LogoutView(View):
     """
     View for handling user logout.
     """
+
     def post(self, request):
         """
         Handles POST requests for user logout.
@@ -132,6 +154,7 @@ class LogoutView(View):
         logout(request)
         messages.success(request, "Signed out!")
         return render(request, "login.html")
+
 
 def error_404(request, exception):
     """

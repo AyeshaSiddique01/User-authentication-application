@@ -1,4 +1,4 @@
-""" Models for user app """
+""" Models for user_app """
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -9,7 +9,8 @@ from .constants import CNIC_VALIDATOR, CONTACT_NO_VALIDATOR
 # models
 class Profile(User):
     """Profile class inherited from django user class"""
-    # user_image = models.ImageField()
+
+    user_image = models.CharField(max_length=500, default="uploads/empty.png")
     full_name = models.CharField(max_length=30, help_text="Enter your full name")
     gender_type = models.TextChoices("GenderType", "Male Female")
     user_gender = models.CharField(max_length=100, choices=gender_type.choices)
@@ -28,7 +29,7 @@ class Profile(User):
         unique=True,
     )
     user_designation = models.CharField(
-        max_length=40, help_text="Enter your designtion", default=None
+        max_length=40, help_text="Enter your designation", default=None
     )
 
     def __str__(self):

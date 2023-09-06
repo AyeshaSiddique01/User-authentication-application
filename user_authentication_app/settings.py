@@ -131,3 +131,7 @@ STATICFILES_DIRS = [BASE_DIR / "user_app/static/user_app"]
 
 # LOGIN_REDIRECT_URL = "/profile/"
 APPEND_SLASH = False
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = [BASE_DIR / "media"]

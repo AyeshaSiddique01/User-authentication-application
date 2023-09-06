@@ -1,7 +1,8 @@
 """ URls for user app """
 from django.urls import path
 
-from .views import LoginView, SignupView, ResetPasswordView, ProfileView, LogoutView
+from .views import (LoginView, LogoutView, ProfileView, ResetPasswordView,
+                    SignupView)
 
 urlpatterns = [
     path("", LoginView.as_view(), name="index"),
