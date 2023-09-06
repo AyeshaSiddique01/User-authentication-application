@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %}{% block body %}
+{% extends 'base.html' %} {% load static %}
+{% block title %}{{ user.username }}{% endblock title %}
+{% block body %}
 <link rel="stylesheet" href="{% static 'user_app/style_profile.css' %}" />
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
