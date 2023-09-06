@@ -1,3 +1,4 @@
+""" URls for user app """
 from django.urls import path
 
 from .views import LoginView, SignupView, ResetPasswordView, ProfileView, LogoutView
