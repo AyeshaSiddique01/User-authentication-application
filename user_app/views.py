@@ -1,3 +1,4 @@
+""" Views for user app """
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
@@ -6,10 +7,14 @@ from django.views.generic import View
 
 from .models import Profile
 
-
 class LoginView(View):
-
+    """
+    View for handling user login.
+    """
     def post(self, request):
+        """
+        Handles POST requests for user login.
+        """
         user = authenticate(
             request, username=request.POST["username"], password=request.POST["password"]
         )
@@ -21,11 +26,19 @@ class LoginView(View):
             return render(request, "login.html")
 
     def get(self, request):
+        """
+        Handles GET requests for displaying the login form.
+        """
         return render(request, "login.html")
 
 class SignupView(View):
-
+    """
+    View for handling user registration (signup).
+    """
     def post(self, request):
+        """
+        Handles POST requests for user registration.
+        """
         user_password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
@@ -54,11 +67,19 @@ class SignupView(View):
         return redirect("profile")
 
     def get(self, request):
+        """
+        Handles GET requests for displaying the signup form.
+        """
         return render(request, "signup.html")
 
 class ResetPasswordView(View):
-
+    """
+    View for handling user password reset.
+    """
     def post(self, request):
+        """
+        Handles POST requests for resetting user password.
+        """
         username = request.POST.get("username")
         user_password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
@@ -78,12 +99,19 @@ class ResetPasswordView(View):
         return render(request, "login.html")
 
     def get(self, request):
+        """
+        Handles GET requests for displaying the password reset form.
+        """
         return render(request, "reset_password.html")
 
-
 class ProfileView(View):
-
+    """
+    View for displaying user profile.
+    """
     def get(self, request):
+        """
+        Handles GET requests for displaying the user profile page.
+        """
         if request.user.is_authenticated:
             user = request.user
             context = {
@@ -93,16 +121,21 @@ class ProfileView(View):
 
         return render(request, "login.html")
 
-
 class LogoutView(View):
-
+    """
+    View for handling user logout.
+    """
     def post(self, request):
+        """
+        Handles POST requests for user logout.
+        """
         logout(request)
         messages.success(request, "Signed out!")
         return render(request, "login.html")
 
-
 def error_404(request, exception):
-    """Returns the error page for 404 error if the page is not found"""
+    """
+    Returns the error page for 404 error if the page is not found.
+    """
     response = render(request, "404.html")
     return response
