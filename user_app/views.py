@@ -33,10 +33,8 @@ class SignupView(View):
             messages.error(request, "Password doesn't match")
             return render(request, "signup.html")
 
-        # Hash the password
         hashed_password = make_password(user_password)
 
-        # Create a new Profile instance
         user = Profile(
             full_name=request.POST.get("full_name"),
             username=request.POST.get("name"),
@@ -53,7 +51,7 @@ class SignupView(View):
 
         # Log the user in
         login(request, user)
-        return redirect("profile")  # Replace 'home' with your desired redirect URL
+        return redirect("profile")
 
     def get(self, request):
         return render(request, "signup.html")
@@ -61,21 +59,24 @@ class SignupView(View):
 class ResetPasswordView(View):
 
     def post(self, request):
+        username = request.POST.get("username")
         user_password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
+        if not Profile.objects.filter(username=username).exists():
+            messages.error(request, "User does not exist")
+            return render(request, "reset_password.html")
+        
         if user_password != confirm_password:
             messages.error(request, "Password doesn't match")
             return render(request, "reset_password.html")
 
-        # Hash the password
         hashed_password = make_password(user_password)
-        print(request.POST.get("username"))
-        user = Profile.objects.get(username=request.POST.get("username"))
+        user = Profile.objects.get(username=username)
         user.password = hashed_password
         user.save()
-        return redirect("profile")  # Replace 'home' with your desired redirect URL
-    
+        return render(request, "login.html")
+
     def get(self, request):
         return render(request, "reset_password.html")
 
