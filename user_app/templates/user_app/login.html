@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="container my-5 w-25">
+  <form method="POST" action="{% url 'login'%}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input
+        type="text"
+        name="username"
+        class="form-control"
+        placeholder="Enter your username"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="Enter password"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+  <p>
+    Forgot password?
+    <a href="{% url 'reset_password' %}" > reset password </a>
+  </p>
+  <p>
+    Don't have an Account?
+    <a href="{% url 'signup' %}" > Signup </a>
+  </p>
+</div>
+{% endblock body %}

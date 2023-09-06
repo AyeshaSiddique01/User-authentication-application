@@ -1,0 +1,102 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="container my-5 w-25">
+  <form method="POST" action="{% url 'signup'%}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input
+        type="text"
+        name="full_name"
+        class="form-control"
+        placeholder="Enter your full name"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        placeholder="Enter your username"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="email"
+        name="email"
+        class="form-control"
+        placeholder="Enter your email"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        name="designation"
+        class="form-control"
+        placeholder="Enter your designation"
+      />
+    </div>
+    <div class="mb-3">
+      <select class="form-select" aria-label="Default select example" name="gender">
+        <option selected>Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        name="phone_no"
+        class="form-control"
+        placeholder="Enter your phone number 03xxxxxxxxx"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        name="CNIC"
+        class="form-control"
+        placeholder="Enter your CNIC in format xxxxx-xxxxxxx-x"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        name="user_address"
+        class="form-control"
+        placeholder="Enter your address"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        class="form-control"
+        type="date"
+        name="DOB"
+        runat="server"
+        value="<%=DateTime.Now%>"
+        placeholder="Enter your Date of birth"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="Enter password"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="password"
+        name="confirm_password"
+        class="form-control"
+        placeholder="Confirm password"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+  <p>
+    Already have an Account?
+    <a href="{% url 'index' %}"> Login </a>
+  </p>
+</div>
+{% endblock body %}

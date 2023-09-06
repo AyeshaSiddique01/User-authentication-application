@@ -1,0 +1,96 @@
+{% extends 'base.html' %} {% load static %}{% block body %}
+<link rel="stylesheet" href="{% static 'user_app/style_profile.css' %}" />
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'profile'%}">User</a>
+    <div>
+      <form class="d-flex" method="POST" action="{% url 'logout'%}">
+        {% csrf_token %}
+        <button class="btn btn-outline-success" type="submit">Logout</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<section class="vh-100" style="background-color: #f4f5f7">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-75">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: 0.5rem">
+          <div class="row g-0">
+            <div
+              class="col-md-4 gradient-custom text-center text-white"
+              style="
+                border-top-left-radius: 0.5rem;
+                border-bottom-left-radius: 0.5rem;
+              "
+            >
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="Avatar"
+                class="img-fluid my-5"
+                style="width: 80px"
+              />
+              <h5>{{ profile.full_name }}</h5>
+              <i class="far fa-edit mb-5"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4" />
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Username</h6>
+                    <p class="text-muted">{{ user.username }}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Designation</h6>
+                    <p class="text-muted">{{ profile.user_designation }}</p>
+                  </div>
+                </div>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">{{ user.email }}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Phone</h6>
+                    <p class="text-muted">{{ profile.user_phone_no }}</p>
+                  </div>
+                </div>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>Gender</h6>
+                    <p class="text-muted">{{ profile.user_gender }}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Date of Birth</h6>
+                    <p class="text-muted">{{ profile.user_DOB }}</p>
+                  </div>
+                </div>
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>CNIC</h6>
+                    <p class="text-muted">{{ profile.user_cnic }}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Address</h6>
+                    <p class="text-muted">
+                      {% if profile.user_address %} {{ profile.user_address }}
+                      {% else %} N/A {% endif %}
+                    </p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-start">
+                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock body %}

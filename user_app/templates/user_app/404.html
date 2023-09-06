@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block body %}
+<div class="center">
+    <p class="fs-3 text-center"> 😔 <p>
+    <p class="fs-2 text-dark text-center"> Page Not Found! </p>
+    <p class="fs-5 text-muted"> 
+        We are sorry for the inconvinience, it looks like the page<br>
+        you're trying to access has been deleted or never existed 
+    </p>
+    <p class="text-center">
+        <a href="{% url 'login' %}" class="btn btn-primary my-3 mx-3"> BACK TO HOME </a>
+    </p>
+</div>
+{% endblock body %}
