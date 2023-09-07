@@ -56,17 +56,17 @@ class SignupView(View):
             messages.error(request, "Password doesn't match")
             return render(request, "signup.html")
 
-        file = request.POST.get("user_image")
-        if user_image:
-            user_image = f"../media/uploads/{username}.png"
-            if Path(user_image).is_file():
-                os.remove(user_image)
-        else:
-            user_image = "../media/uploads/empty.png"
-        file.save(user_image)
+        # file = request.POST.get("user_image")
+        # if user_image:
+        #     user_image = f"../media/uploads/{username}.png"
+        #     if Path(user_image).is_file():
+        #         os.remove(user_image)
+        # else:
+        #     user_image = "../media/uploads/empty.png"
+        # file.save(user_image)
 
         hashed_password = make_password(user_password)
-        user = Profile(
+        Profile.objects.create(
             full_name=request.POST.get("full_name"),
             username=username,
             email=request.POST.get("email"),
@@ -77,11 +77,16 @@ class SignupView(View):
             user_cnic=request.POST.get("CNIC"),
             user_designation=request.POST.get("designation"),
             user_address=request.POST.get("user_address"),
-            user_image="/Users/ayshasiddique/Documents/User_authentication_app/user_authentication_app/user_app/media/uploads/empty.png",
+            user_image=request.FILES.get("user_image"),
         )
-        user.save()
+        # user.save()
 
         # Log the user in
+        user = authenticate(
+            request,
+            username=username,
+            password=user_password,
+        )
         login(request, user)
         return redirect("profile")
 

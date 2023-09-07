@@ -10,7 +10,7 @@ from .constants import CNIC_VALIDATOR, CONTACT_NO_VALIDATOR
 class Profile(User):
     """Profile class inherited from django user class"""
 
-    user_image = models.CharField(max_length=500, default="uploads/empty.png")
+    user_image = models.ImageField(upload_to="images/", default="images/empty.png")
     full_name = models.CharField(max_length=30, help_text="Enter your full name")
     gender_type = models.TextChoices("GenderType", "Male Female")
     user_gender = models.CharField(max_length=100, choices=gender_type.choices)
