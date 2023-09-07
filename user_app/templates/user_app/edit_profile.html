@@ -1,94 +1,116 @@
-{% extends 'base.html' %} {% block title %}Edit Profile{% endblock title %} 
+{% extends 'base.html' %} {% load static %} {% block title %}Edit Profile{% endblock title %}
 {%block body %}
 
-<div class="container my-5 w-25">
+<link rel="stylesheet" href="{% static 'user_app/style.css' %}" />
+<div class="container my-5 style-form">
   <h1>Edit your Profile</h1>
   <form method="POST" action="{% url 'edit_profile'%}">
     {% csrf_token %}
-    <div class="mb-3">
-      <input
-        type="text"
-        name="full_name"
-        class="form-control"
-        placeholder="Enter your full name"
-        value="{{ profile.full_name }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Full Name: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="full_name"
+          class="form-control"
+          value="{{ profile.full_name }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="name"
-        class="form-control"
-        placeholder="Enter your username"
-        value="{{ user.username }}"
-        disabled
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Username: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+          value="{{ user.username }}"
+          disabled
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="email"
-        name="email"
-        class="form-control"
-        placeholder="Enter your email"
-        value="{{ user.email }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Email: </label>
+      <div class="col-sm-10">
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          value="{{ user.email }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="designation"
-        class="form-control"
-        placeholder="Enter your designation"
-        value="{{ profile.user_designation }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Designation: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="designation"
+          class="form-control"
+          value="{{ profile.user_designation }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        name="gender"
-      >
-        <option selected>{{ profile.user_gender }}</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Gender: </label>
+      <div class="col-sm-10">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          name="gender"
+        >
+          <option selected>{{ profile.user_gender }}</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="phone_no"
-        class="form-control"
-        placeholder="Enter your phone number 03xxxxxxxxx"
-        value="{{ profile.user_phone_no }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Phone number: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="phone_no"
+          class="form-control"
+          placeholder="03xxxxxxxxx"
+          value="{{ profile.user_phone_no }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="CNIC"
-        class="form-control"
-        placeholder="Enter your CNIC in format xxxxx-xxxxxxx-x"
-        value="{{ profile.user_cnic }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">CNIC: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="CNIC"
+          class="form-control"
+          placeholder="xxxxx-xxxxxxx-x"
+          value="{{ profile.user_cnic }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="user_address"
-        class="form-control"
-        placeholder="Enter your address"
-        value="{{ profile.user_address }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Address: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="user_address"
+          class="form-control"
+          value="{{ profile.user_address }}"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        class="form-control"
-        type="date"
-        name="DOB"
-        runat="server"
-        placeholder="Enter your Date of birth"
-        value="{{ profile.user_DOB|date:'Y-m-d' }}"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Date of birth: </label>
+      <div class="col-sm-10">
+        <input
+          class="form-control"
+          type="date"
+          name="DOB"
+          runat="server"
+          value="{{ profile.user_DOB|date:'Y-m-d' }}"
+        />
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
   </form>

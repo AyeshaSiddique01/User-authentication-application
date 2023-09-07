@@ -1,111 +1,142 @@
-{% extends 'base.html' %}
-{% block title %}Signup{% endblock title %}
+{% extends 'base.html' %} {% load static %} {% block title %}Signup{% endblock title %} 
 {% block body %}
 
-<div class="container my-5 w-25">
+<link rel="stylesheet" href="{% static 'user_app/style.css' %}" />
+<div class="container my-5 style-form">
   <h1>Register yourself</h1>
   <form method="POST" action="{% url 'signup'%}">
     {% csrf_token %}
-    <div class="mb-3">
-      <input
-        type="text"
-        name="full_name"
-        class="form-control"
-        placeholder="Enter your full name"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Full name: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="full_name"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="name"
-        class="form-control"
-        placeholder="Enter your username"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Username: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="name"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="email"
-        name="email"
-        class="form-control"
-        placeholder="Enter your email"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Email: </label>
+      <div class="col-sm-10">
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="designation"
-        class="form-control"
-        placeholder="Enter your designation"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Designation: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="designation"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <select class="form-select" aria-label="Default select example" name="gender">
-        <option selected>Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Gender: </label>
+      <div class="col-sm-10">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          name="gender"
+        >
+          <option selected>Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="phone_no"
-        class="form-control"
-        placeholder="Enter your phone number 03xxxxxxxxx"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Phone number: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="phone_no"
+          class="form-control"
+          placeholder="03xxxxxxxxx"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="CNIC"
-        class="form-control"
-        placeholder="Enter your CNIC in format xxxxx-xxxxxxx-x"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">CNIC: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="CNIC"
+          class="form-control"
+          placeholder="xxxxx-xxxxxxx-x"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="text"
-        name="user_address"
-        class="form-control"
-        placeholder="Enter your address"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Address: </label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          name="user_address"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        class="form-control"
-        type="date"
-        name="DOB"
-        runat="server"
-        value="<%=DateTime.Now%>"
-        placeholder="Enter your Date of birth"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Date of birth: </label>
+      <div class="col-sm-10">
+        <input
+          class="form-control"
+          type="date"
+          name="DOB"
+          runat="server"
+          value="<%=DateTime.Now%>"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        class="form-control"
-        type="file"
-        name="user_image"
-        placeholder="Upload your profile picture"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Profile picture: </label>
+      <div class="col-sm-10">
+        <input
+          class="form-control"
+          type="file"
+          name="user_image"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        name="password"
-        class="form-control"
-        placeholder="Enter password"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Password: </label>
+      <div class="col-sm-10">
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+        />
+      </div>
     </div>
-    <div class="mb-3">
-      <input
-        type="password"
-        name="confirm_password"
-        class="form-control"
-        placeholder="Confirm password"
-      />
+    <div class="row mb-3">
+      <label class="col-sm-2 col-form-label">Confirm password: </label>
+      <div class="col-sm-10">
+        <input
+          type="password"
+          name="confirm_password"
+          class="form-control"
+        />
+      </div>
     </div>
     <button type="submit" class="btn btn-primary">Sign up</button>
   </form>
-  
+  <br>
   <p>
     Already have an Account?
     <a href="{% url 'index' %}"> Login </a>
