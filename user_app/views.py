@@ -1,11 +1,13 @@
 """ Views for user app """
+import os
+from pathlib import Path
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.views.generic import View
-import os
-from pathlib import Path
+
 from .models import Profile
 
 
@@ -46,7 +48,7 @@ class SignupView(View):
         """
         Handles POST requests for user registration.
         """
-        username=request.POST.get("name")
+        username = request.POST.get("name")
         user_password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
@@ -54,14 +56,14 @@ class SignupView(View):
             messages.error(request, "Password doesn't match")
             return render(request, "signup.html")
 
-        # file = request.POST.get("user_image")
-        # if user_image:
-        #     user_image = f"../media/uploads/{username}.png"
-        #     if Path(user_image).is_file():
-        #         os.remove(user_image)
-        # else:
-        #     user_image = "../media/uploads/empty.png"
-        # file.save(user_image)
+        file = request.POST.get("user_image")
+        if user_image:
+            user_image = f"../media/uploads/{username}.png"
+            if Path(user_image).is_file():
+                os.remove(user_image)
+        else:
+            user_image = "../media/uploads/empty.png"
+        file.save(user_image)
 
         hashed_password = make_password(user_password)
         user = Profile(
@@ -140,6 +142,43 @@ class ProfileView(View):
             return render(request, "profile.html", context=context)
 
         return render(request, "login.html")
+
+
+class EditProfileView(View):
+    """
+    View for displaying user profile.
+    """
+
+    def get(self, request):
+        """
+        Handles GET requests for displaying the user edit profile page.
+        """
+        if request.user.is_authenticated:
+            user = request.user
+            context = {"profile": user.profile}
+            return render(request, "edit_profile.html", context=context)
+
+        return render(request, "login.html")
+
+    def post(self, request):
+        """
+        Handles POST requests for editing user profile.
+        """
+        # username = request.POST.get("name")
+        # print(username)
+        user = Profile.objects.get(username=request.user.username)
+        print(user.full_name)
+        user.full_name = request.POST.get("full_name")
+        user.email = request.POST.get("email")
+        user.user_gender = request.POST.get("gender")
+        user.user_DOB = request.POST.get("DOB")
+        user.user_phone_no = request.POST.get("phone_no")
+        user.user_cnic = request.POST.get("CNIC")
+        user.user_designation = request.POST.get("designation")
+        user.user_address = request.POST.get("user_address")
+        user.save()
+        messages.success(request, "Updated")
+        return redirect("profile")
 
 
 class LogoutView(View):
