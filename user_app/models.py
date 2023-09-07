@@ -6,7 +6,6 @@ from django.utils import timezone
 from .constants import CNIC_VALIDATOR, CONTACT_NO_VALIDATOR
 
 
-# models
 class Profile(User):
     """Profile class inherited from django user class"""
 
